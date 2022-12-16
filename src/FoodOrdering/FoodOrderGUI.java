@@ -66,62 +66,68 @@ public class FoodOrderGUI extends JFrame {
             if(rb.isSelected()){
                 disc = rb.getText();
             }
-            //rb.setSelected(false);
         }
         return disc;
     }
 
-    public void calcOrder(){
-        double sum = 0;
-        boolean foodFound = false;
-        for(JCheckBox cb: cbFood){
-            if(cb.isSelected()){
-                foodFound = true;
-                switch(cb.getText()){
-                    case "Pizza":
-                        sum += 100.00;
-                        break;
-                    case "Burger":
-                        sum += 80.00;
-                        break;
-                    case "Fries":
-                        sum += 65.00;
-                        break;
-                    case "Soft Drinks":
-                        sum += 55.00;
-                        break;
-                    case "Tea":
-                        sum += 50.00;
-                        break;
-                    case "Sundae":
-                        sum += 40.00;
-                        break;
+    public void calcOrder() {
+        try {
+            double sum = 0;
+            boolean foodFound = false;
+            for (JCheckBox cb : cbFood) {
+                if (cb.isSelected()) {
+                    foodFound = true;
+                    switch (cb.getText()) {
+                        case "Pizza":
+                            sum += 100.00;
+                            break;
+                        case "Burger":
+                            sum += 80.00;
+                            break;
+                        case "Fries":
+                            sum += 65.00;
+                            break;
+                        case "Soft Drinks":
+                            sum += 55.00;
+                            break;
+                        case "Tea":
+                            sum += 50.00;
+                            break;
+                        case "Sundae":
+                            sum += 40.00;
+                            break;
+                    }
                 }
             }
-        }
 
-        if (!foodFound) {
+            if (!foodFound) {
+                throw new IllegalArgumentException();
+            }
+
+            double amt = 0;
+
+            switch (discount()) {
+                case "None":
+                    amt = sum;
+                    break;
+                case "5% Off":
+                    amt = sum * 0.95;
+                    break;
+                case "10% Off":
+                    amt = sum * 0.90;
+                    break;
+                case "15% Off":
+                    amt = sum * 0.85;
+                    break;
+            }
+
+            JOptionPane.showMessageDialog(panel1, String.format("The total price is Php %.2f", amt));
+
+        } catch (IllegalArgumentException e){
             JOptionPane.showMessageDialog(panel1, "You must select at least one food");
-            return;
+        } catch (NullPointerException e){
+            JOptionPane.showMessageDialog(panel1,"Please select a discount promo");
         }
-
-        double amt = 0;
-        switch (discount()){
-            case "None":
-                amt = sum;
-                break;
-            case "5% Off":
-                amt = sum * 0.95;
-                break;
-            case "10% Off":
-                amt = sum * 0.90;
-                break;
-            case "15% Off":
-                amt = sum * 0.85;
-                break;
-        }
-
-        JOptionPane.showMessageDialog(panel1,String.format("The total price is Php %.2f",amt));
     }
 
 }
