@@ -56,7 +56,7 @@ public class LeapYearGUI extends JFrame{
             if (year < 1582){
                 throw new IllegalArgumentException();
             }
-        } catch (NumberFormatException e){
+        } catch(NumberFormatException e){
             JOptionPane.showMessageDialog(panel1,"Please enter a valid year");
         } catch(IllegalArgumentException e){
             JOptionPane.showMessageDialog(panel1,"Year must be greater than 1582");
