@@ -48,7 +48,7 @@ public class SimpleCalcGUI extends JFrame{
         try {
             validityChecker2 = true;
             n2 = Integer.parseInt(tfNumber2.getText());
-        } catch (NumberFormatException e){
+        } catch(NumberFormatException e){
             validityChecker2 = false;
             JOptionPane.showMessageDialog(panel1,"Please enter the second number");
         }
