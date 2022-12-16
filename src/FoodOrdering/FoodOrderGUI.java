@@ -123,9 +123,9 @@ public class FoodOrderGUI extends JFrame {
 
             JOptionPane.showMessageDialog(panel1, String.format("The total price is Php %.2f", amt));
 
-        } catch (IllegalArgumentException e){
+        } catch(IllegalArgumentException e){
             JOptionPane.showMessageDialog(panel1, "You must select at least one food");
-        } catch (NullPointerException e){
+        } catch(NullPointerException e){
             JOptionPane.showMessageDialog(panel1,"Please select a discount promo");
         }
     }
