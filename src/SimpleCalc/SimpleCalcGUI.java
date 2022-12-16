@@ -11,6 +11,7 @@ public class SimpleCalcGUI extends JFrame{
     private JButton btnCompute;
     private JTextField tfNumber2;
     private JTextField lblResult;
+    private boolean validityChecker1,validityChecker2;
 
     public SimpleCalcGUI(){
         btnCompute.addActionListener(new ActionListener() {
@@ -31,11 +32,27 @@ public class SimpleCalcGUI extends JFrame{
     }
 
     public int getNum1(){
-        return Integer.parseInt(tfNumber1.getText());
+        int n1 = 0;
+        try {
+            validityChecker1 = true;
+            n1 = Integer.parseInt(tfNumber1.getText());
+        } catch (NumberFormatException e){
+            validityChecker1 = false;
+            JOptionPane.showMessageDialog(panel1,"Please enter the first number");
+        }
+        return n1;
     }
 
     public int getNum2(){
-        return Integer.parseInt(tfNumber2.getText());
+        int n2 = 0;
+        try {
+            validityChecker2 = true;
+            n2 = Integer.parseInt(tfNumber2.getText());
+        } catch (NumberFormatException e){
+            validityChecker2 = false;
+            JOptionPane.showMessageDialog(panel1,"Please enter the second number");
+        }
+        return n2;
     }
 
     public void compute(){
@@ -53,10 +70,16 @@ public class SimpleCalcGUI extends JFrame{
                 ans = num1 * num2;
                 break;
             case 3:
-                ans = num1/num2;
+                try {
+                    ans = num1 / num2;
+                } catch (ArithmeticException e){
+                    JOptionPane.showMessageDialog(panel1,"Cannot divide number by zero");
+                    validityChecker2 = false;
+                }
                 break;
         }
-
-        lblResult.setText(Integer.toString(ans));
+        if (validityChecker1 && validityChecker2) {
+            lblResult.setText(Integer.toString(ans));
+        }
     }
 }
