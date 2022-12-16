@@ -50,35 +50,38 @@ public class LeapYearGUI extends JFrame{
 
 
     public int yearEntered () {
-        int year;
-        year = Integer.parseInt(tfYear.getText());
+        int year = 0;
+        try {
+            year = Integer.parseInt(tfYear.getText());
+            if (year < 1582){
+                throw new IllegalArgumentException();
+            }
+        } catch (NumberFormatException e){
+            JOptionPane.showMessageDialog(panel1,"Please enter a valid year");
+        } catch(IllegalArgumentException e){
+            JOptionPane.showMessageDialog(panel1,"Year must be greater than 1582");
+        }
         return year;
     }
 
 
 
-    public void leapCompute(){
+    public void leapCompute() {
         int year = yearEntered();
-        try {
-            if(year > 1582) {
-                if (year % 4 == 0) {
-                    if (year % 100 == 0) {
-                        if (year % 400 == 0) {
-                            JOptionPane.showMessageDialog(panel1, "Leap year");
-                        } else {
-                            JOptionPane.showMessageDialog(panel1, "Not a leap year");
-                        }
-                    } else {
+        if (year > 1582) {
+            if (year % 4 == 0) {
+                if (year % 100 == 0) {
+                    if (year % 400 == 0) {
                         JOptionPane.showMessageDialog(panel1, "Leap year");
+                    } else {
+                        JOptionPane.showMessageDialog(panel1, "Not a leap year");
                     }
                 } else {
-                    JOptionPane.showMessageDialog(panel1, "Not a leap year");
+                    JOptionPane.showMessageDialog(panel1, "Leap year");
                 }
             } else {
-                throw new IllegalArgumentException();
+                JOptionPane.showMessageDialog(panel1, "Not a leap year");
             }
-        } catch(IllegalArgumentException e){
-            JOptionPane.showMessageDialog(panel1,"Year must be greater than 1582");
         }
     }
 
