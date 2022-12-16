@@ -48,25 +48,39 @@ public class LeapYearGUI extends JFrame{
         leap.setVisible(true);
     }
 
-    public int yearEntered(){
-        return Integer.parseInt(tfYear.getText());
+
+    public int yearEntered () {
+        int year;
+        year = Integer.parseInt(tfYear.getText());
+        return year;
     }
+
+
 
     public void leapCompute(){
         int year = yearEntered();
-        if(year % 4 == 0){
-            if(year % 100 == 0){
-                if(year % 400 == 0){
-                    JOptionPane.showMessageDialog(panel1,"Leap year");
+        try {
+            if(year > 1582) {
+                if (year % 4 == 0) {
+                    if (year % 100 == 0) {
+                        if (year % 400 == 0) {
+                            JOptionPane.showMessageDialog(panel1, "Leap year");
+                        } else {
+                            JOptionPane.showMessageDialog(panel1, "Not a leap year");
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(panel1, "Leap year");
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(panel1,"Not a leap year");
+                    JOptionPane.showMessageDialog(panel1, "Not a leap year");
                 }
             } else {
-                JOptionPane.showMessageDialog(panel1,"Leap year");
+                throw new IllegalArgumentException();
             }
-        } else {
-            JOptionPane.showMessageDialog(panel1,"Not a leap year");
+        } catch(IllegalArgumentException e){
+            JOptionPane.showMessageDialog(panel1,"Year must be greater than 1582");
         }
     }
+
 
 }
